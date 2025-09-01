@@ -1,4 +1,6 @@
 let amigosLista = [];
+let indiceAleatorio = [];
+let amigoSecreto = [];
 
 function asignarTextoElemento (elemento, texto) {
     let elementoHTML = document.querySelector(elemento);
@@ -16,6 +18,14 @@ function actualizarLista() {
     }
 }
 
+function mostrarResultado(amigoSecreto) {
+    let ulResultado = document.getElementById("resultado");
+    ulResultado.innerHTML = ""; 
+    let li = document.createElement("li");
+    li.textContent = `El amigo secreto es: ${amigoSecreto}`;
+    ulResultado.appendChild(li);
+}
+
 function agregarAmigo() {
     let nombreAmigo = document.getElementById("amigo").value;
 
@@ -31,5 +41,19 @@ function agregarAmigo() {
         console.log(amigosLista);
             actualizarLista();
         return;
+    }
+}
+
+function sortearAmigo() {
+    if (amigosLista.length === 0) {
+        asignarTextoElemento('h2', 'No has agregado amigos para sortear aun');
+    }
+    else{
+        indiceAleatorio = Math.floor(Math.random() * amigosLista.length);
+        let amigoSecreto = amigosLista[indiceAleatorio];
+        mostrarResultado(amigoSecreto);
+        amigosLista.splice(indiceAleatorio, 1);
+        actualizarLista();
+        console.log(amigosLista);
     }
 }
